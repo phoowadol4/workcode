@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        th, td,tbody, caption {
+    border: 1px solid #5218d0;
+    border-collapse: collapse;
+    padding: 0.5rem;
+}
+    </style>
+    <title>get data api</title>
+</head>
+<body>
+   <script>
+  fetch('https://api.line.me/v2/bot/richmenu', {
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+    },
+})
+   .then(response => response.json())
+   .then(response => console.log(JSON.stringify(response)))
+   </script>
+</body>
+</html>
