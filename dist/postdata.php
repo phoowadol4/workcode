@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['gender'] = $_POST['gender'];    
       $_SESSION['age'] = $_POST['age'];
       $_SESSION['date'] = $_POST['date'];
-      // echo $_POST['date'];
+      echo $_POST['date'];
       $_SESSION['ever'] = $_POST['ever'];
 
       // $dateTime = new DateTime($_POST['date']);
