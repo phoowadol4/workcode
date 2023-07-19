@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="flex items-center justify-center h-screen">
-        <form method="POST" action="postdata.php" class="bg-white shadow-md rounded-md p-10">
+        <form method="POST" action="post.php" class="bg-white shadow-md rounded-md p-10">
             <h1 class="text-2xl font-bold text-center ">แบบประเมินความพึงพอใจ</h1>
             <br>
             <h1 class="text-md">โปรดสละเวลาอันมีค่าของท่านให้การตอบแบบสอบถามฉบับนี้</h1>
