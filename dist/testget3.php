@@ -1,59 +1,83 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
+<?php
+// API endpoint URL
+$url = 'https://api.healthserv.gistnu.nu.ac.th/surveys';
 
+$ch = curl_init();
+
+// Set cURL options
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Content-Type: application/json',
+    'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvb256YTc3IiwiaWF0IjoxNjg5NzU2OTMyLCJleHAiOjE2ODk3NjA1MzJ9.Xm4mRQKsScTOq55hoMxWszoqTMNpN9bRHr03UiWi_0c'
+  ]);
+
+// Execute the request
+$response = curl_exec($ch);
+
+// Check for errors
+if ($response === false) {
+    echo 'Error: ' . curl_error($ch);
+    exit();
+}
+
+// Close cURL
+curl_close($ch);
+
+// Decode JSON response to an array
+$dataArray = json_decode($response, true);
+
+// Check if JSON decoding was successful
+if ($dataArray === null) {
+    echo 'Error: Unable to parse JSON response.';
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<title>Surveys Data</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
 </head>
-
-<body> -->
-    <!-- <table class="table">
+<body>
+    <h1>Surveys Data</h1>
+    <table>
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Website</th>
-                <th scope="col">Company</th>
+                <th>ID</th>
+                <th>เพศ</th>
+                <th>answerer</th>
+                <th>อายุ</th>
+                <th>วันที่มาใช้บริการ</th>
+                <th>ท่านมาใช้บริการที่นี่ครั้งแรก</th>
+                <!-- Add more table headers for other fields in the JSON data -->
             </tr>
         </thead>
-        <tbody> -->
+        <tbody>
             <?php
-$curl = curl_init();
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://api.healthserv.gistnu.nu.ac.th/surveys',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvb256YTc3IiwiaWF0IjoxNjg5NTgzNjAzLCJleHAiOjE2ODk1ODcyMDN9.m-TTPzy0J3gBI1gbEtMl7q9jL5e6Aw8H0SPQAU3QugA'
-),
-));
-$response = curl_exec($curl);
-// $obj = json_decode($response);
-// $ssd = '';
-//                         $ssd .= '<tr>
-//                                     <th scope="row">'.$obj[$i]->result.'</th>
-//                                     <td>'.$obj[$i]->result->id.'</td>
-//                                     <td>'.$obj[$i]->result->sex.'</td>
-//                                     <td>'.$obj[$i]->result->answerer.'</td>
-//                                     <td>'.$obj[$i]->result->age.'</td>
-//                                     <td>'.$obj[$i]->result->date_time.'</td>                                 
-//                                     <td>'.$obj[$i]->result->countEver.'</td>
-//                                 </tr>';
-                    
-//                     echo $ssd;
-curl_close($curl);
-echo $response;
-?>
-<!-- </body>
-
-</html> -->
+            foreach ($dataArray['result'] as $survey) {
+                echo '<tr>';
+                echo '<td>' . $survey['id'] . '</td>';
+                echo '<td>' . $survey['sex'] . '</td>';
+                echo '<td>' . $survey['answerer'] . '</td>';
+                echo '<td>' . $survey['age'] . '</td>';
+                echo '<td>' . $survey['date_time'] . '</td>';
+                echo '<td>' . $survey['countEver'] . '</td>';
+                // Add more cells for additional fields in the JSON data
+                echo '</tr>';
+            }
+            ?>
+        </tbody>
+    </table>
+</body>
+</html>

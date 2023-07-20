@@ -3,37 +3,43 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['gender']) && isset($_POST['date'])&& isset($_POST['age'])&& isset($_POST['ever'])) {
+    
     $_SESSION['gender'] = $_POST['gender'];
     $_SESSION['date'] = $_POST['date'];
     $_SESSION['age'] = $_POST['age'];
     $_SESSION['ever'] = $_POST['ever'];
+
+    if(!empty($_POST['gender'])) {
+      $_SESSION['gender'] = $_POST['gender'];
+  }
+
  
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://api.healthserv.gistnu.nu.ac.th/surveys/submit-survey',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'POST',
-      CURLOPT_POSTFIELDS =>'{
-      "sex": "'.$_POST["gender"].'",
-      "answerer": "I am",
-      "age": '.$_POST["age"].',
-      "date_time": "'.$_POST["date"].'",
-      "countEver": "'.$_POST["ever"].'"
-    }',
-      CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/json'
-      ),
-    ));
+    // $curl = curl_init();
+    // curl_setopt_array($curl, array(
+    //   CURLOPT_URL => 'https://api.healthserv.gistnu.nu.ac.th/surveys/submit-survey',
+    //   CURLOPT_RETURNTRANSFER => true,
+    //   CURLOPT_ENCODING => '',
+    //   CURLOPT_MAXREDIRS => 10,
+    //   CURLOPT_TIMEOUT => 0,
+    //   CURLOPT_FOLLOWLOCATION => true,
+    //   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    //   CURLOPT_CUSTOMREQUEST => 'POST',
+    //   CURLOPT_POSTFIELDS =>'{
+    //   "sex": "'.$_POST["gender"].'",
+    //   "answerer": "I am",
+    //   "age": '.$_POST["age"].',
+    //   "date_time": "'.$_POST["date"].'",
+    //   "countEver": "'.$_POST["ever"].'"
+    // }',
+    //   CURLOPT_HTTPHEADER => array(
+    //     'Content-Type: application/json'
+    //   ),
+    // ));
     
-    $response = curl_exec($curl);
-    curl_close($curl);
-    // echo $response;
-        }
+    // $response = curl_exec($curl);
+    // curl_close($curl);
+    // // echo $response;
+    //     }
       
 
     header("Location: form2.php");
@@ -46,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['rd_5'] = $_POST['rd_5'];
     $_SESSION['rd_6'] = $_POST['rd_6'];
     $_SESSION['rd_7'] = $_POST['rd_7'];
+    
     
     
 
@@ -100,5 +107,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_destroy();
 
   }
-
+}
 ?>
